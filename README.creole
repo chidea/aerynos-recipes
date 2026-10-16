@@ -1,13 +1,14 @@
-== chidea's Aerynos recipes
+== chidea's AerynOS recipes
+Upstream : [[https://github.com/AerynOS/recipes/|AerynOS/recipes]]
 
-=== recipes
-* XeStrata related
-** blosc2-devel
-** zstd-devel-static
+=== Recipes
+* [[https://github.com/MistVVK/XeStrata|XeStrata]] related (for intel B70, contrib-llvm)
+** [[https://blosc.org/c-blosc2/c-blosc2.html|blosc2-devel]]
+** [[https://github.com/facebook/zstd|zstd-devel-static]]
 
-* aria2
+* [[https://aria2.github.io/|aria2]]
 
 
 === AI Agent automation
 Basic recipe writing automation via `AGENTS.md` file. The official documentation is summarized, linked and placed under `docs` directory.
-All responsibility using these automation mechanisms are on the user of AI agents.
+The user of AI agent bears sole responsibility associated with the utilization of these automation mechanisms.
