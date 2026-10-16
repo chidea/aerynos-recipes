@@ -1,0 +1,13 @@
+== chidea's Aerynos recipes
+
+=== recipes
+* XeStrata related
+** blosc2-devel
+** zstd-devel-static
+
+* aria2
+
+
+=== AI Agent automation
+Basic recipe writing automation via `AGENTS.md` file. The official documentation is summarized, linked and placed under `docs` directory.
+All responsibility using these automation mechanisms are on the user of AI agents.
