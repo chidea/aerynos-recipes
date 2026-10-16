@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name        : aria2
+version     : "1.37.0"
+release     : 2
+homepage    : https://aria2.github.io/
+upstreams   :
+    - https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz : 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
+summary     : aria2 is a lightweight multi-protocol & multi-source, cross platform download utility operated in command-line
+description : |
+    aria2 is a lightweight multi-protocol & multi-source, cross platform download utility operated in command-line. It supports HTTP/HTTPS, FTP, SFTP, BitTorrent and Metalink.
+license     : GPL-2.0
+builddeps   :
+    - pkgconfig(libcares)
+    - pkgconfig(gnutls)
+    - pkgconfig(gmp)
+    - pkgconfig(libssh2)
+    - pkgconfig(nettle)
+    - pkgconfig(sqlite3)
+    - pkgconfig(libxml-2.0)
+    - pkgconfig(zlib)
+setup       : |
+    %patch %(pkgdir)/0001-Adapt-to-nettle-4.0-digest-api.patch
+    %configure \
+        --disable-nls \
+        --with-gnutls \
+        --with-libgmp \
+        --with-libssh2
+build       : |
+    %make
+install     : |
+    %make_install
+packages    :
+    - "%(name)":
+        paths:
+            - /usr/share/doc
+            - /usr/share/man

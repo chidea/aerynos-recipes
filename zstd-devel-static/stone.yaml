@@ -1,0 +1,35 @@
+# SPDX-FileCopyrightText: 2024 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name        : zstd-devel-static
+version     : "1.5.7"
+release     : 2
+summary     : Static library for zstd
+license     :
+    - BSD-3-Clause
+    - GPL-2.0-only
+homepage    : https://facebook.github.io/zstd
+description : |
+    Static library for zstd, for building software that links against zstd statically.
+    The development headers are provided by the zstd package.
+upstreams   :
+    - https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.zst: 5b331d961d6989dc21bb03397fc7a2a4d86bc65a14adc5ffbbce050354e30fd2
+rundeps     :
+    - zstd
+setup       : |
+    %cmake -S build/cmake \
+        -DZSTD_BUILD_SHARED=OFF \
+        -DZSTD_BUILD_STATIC=ON \
+        -DZSTD_BUILD_PROGRAMS=OFF \
+        -DZSTD_BUILD_CONTRIB=OFF \
+        -DZSTD_BUILD_TESTS=OFF
+build       : |
+    %cmake_build
+install     : |
+    %install_file %(builddir)/lib/libzstd.a %(installroot)%(libdir)/libzstd.a
+packages    :
+    - "%(name)":
+        # Keep the static lib in the main package (higher rule priority than the
+        # base %(name)-devel template), since this package *is* the devel package
+        paths:
+            - /usr/lib/*.a

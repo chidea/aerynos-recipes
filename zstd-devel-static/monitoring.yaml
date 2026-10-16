@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: 2024 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+releases:
+  id: 12083
+  rss: ~
+security:
+  cpe: ~ # No known CPE. Last checked 20230104

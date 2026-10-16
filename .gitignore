@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2022 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+*.tar.*
+*.stone
+manifest.*.bin
+manifest.*.jsonc
+.task
+
+# Only use `stone.yaml` path now please.
+stone.yml
+
+# Used by just for loading environment variables specific to local systems
+.env

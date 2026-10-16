@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2025 AerynOS Developers
+# SPDX-License-Identifier: MPL-2.0
+
+name        : blosc2-devel
+version     : "3.3.5"
+release     : 1
+homepage    : https://github.com/Blosc/c-blosc2
+summary     : Development files for the blosc2 compression library
+description : |
+    Development files for the blosc2 compression library: the public headers,
+    the static library, the pkg-config file and the CMake config files, for
+    building software that links against blosc2.
+license     :
+    - BSD-3-Clause
+upstreams   :
+    - https://github.com/Blosc/c-blosc2/archive/refs/tags/v3.3.5.tar.gz : ae3a348fd960f29180e8ee97b9fa3dad1a6a592098f2a3eac82979082a5932d5
+setup       : |
+    # The build chroot has no network, so bundle the compressor sources that
+    # blosc2 would otherwise fetch via FetchContent (lz4, zstd, zlib-ng) and
+    mkdir -p %(builddir)/deps/lz4 %(builddir)/deps/zstd %(builddir)/deps/zlib-ng
+    bsdtar -xzf %(pkgdir)/lz4-1.10.0.tar.gz -C %(builddir)/deps/lz4 --strip-components=1
+    bsdtar -xzf %(pkgdir)/zstd-1.5.7.tar.gz -C %(builddir)/deps/zstd --strip-components=1
+    bsdtar -xzf %(pkgdir)/zlib-ng-2.3.3.tar.gz -C %(builddir)/deps/zlib-ng --strip-components=1
+    %cmake \
+        -DBUILD_SHARED=OFF \
+        -DBUILD_STATIC=ON \
+        -DBUILD_TESTS=OFF \
+        -DBUILD_FUZZERS=OFF \
+        -DBUILD_BENCHMARKS=OFF \
+        -DBUILD_EXAMPLES=OFF \
+        -DBUILD_PLUGINS=OFF \
+        -DBLOSC_LZ4_SOURCE_DIR=%(builddir)/deps/lz4 \
+        -DBLOSC_ZSTD_SOURCE_DIR=%(builddir)/deps/zstd \
+        -DBLOSC_ZLIBNG_SOURCE_DIR=%(builddir)/deps/zlib-ng
+build       : |
+    %cmake_build
+install     : |
+    %cmake_install
+packages    :
+    - "%(name)":
+        # Keep the devel files in the main package: this package *is* the devel
+        # package, so the base %(name)-devel template (which would create an
+        # empty blosc2-devel-devel subpackage) must not claim these paths.
+        paths:
+            - /usr/include
+            - /usr/lib/*.a
+            - /usr/lib/cmake
+            - /usr/lib/pkgconfig
