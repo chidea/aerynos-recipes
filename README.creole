@@ -11,4 +11,5 @@ Upstream : [[https://github.com/AerynOS/recipes/|AerynOS/recipes]]
 
 === AI Agent automation
 Basic recipe writing automation via `AGENTS.md` file. The official documentation is summarized, linked and placed under `docs` directory.
-The user of AI agent bears sole responsibility associated with the utilization of these automation mechanisms.
+
+**The user of AI agent bears sole responsibility associated with the utilization of these automation mechanisms.**
